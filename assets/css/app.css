@@ -806,3 +806,13 @@ ul { list-style: none; }
   font-size: 1.1rem !important;
   margin-bottom: 1rem !important;
 }
+
+/* Static Back Button Override (For table pages where layout is fluid/full-width) */
+.btn-back-static {
+  position: relative !important;
+  top: auto !important;
+  left: auto !important;
+  display: inline-flex !important;
+  margin-bottom: 1rem !important;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.05) !important;
+}
