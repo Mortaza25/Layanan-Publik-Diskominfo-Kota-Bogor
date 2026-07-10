@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Daftar Jurnal & Penelitian — Diskominfo Kota Bogor</title>
+  <meta name="description" content="Dinas Komunikasi dan Informatika Kota Bogor — Portal layanan digital, informasi publik, dan pengaduan masyarakat.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+  <link rel="stylesheet" href="assets/css/app.css">
+  
+  <style>
+    /* CSS Tambahan untuk memastikan navbar hover dan tanpa dot di mobile */
+    .nav-item { list-style: none !important; }
+    .nav-menu .dropdown-menu { border: none; box-shadow: 0 4px 15px rgba(0,0,0,0.08); border-radius: 12px; }
+    .nav-menu .dropdown-item { padding: 0.6rem 1.2rem; border-radius: 6px; margin: 2px 8px; width: auto; font-weight: 500; }
+    .nav-menu .dropdown-item:hover { background-color: #f1f5f9; color: #0ea5e9; }
+    
+    @media (max-width: 991px) {
+      .nav-menu .dropdown-menu { display: block !important; box-shadow: none !important; padding: 0; margin-left: 1rem; border-left: 2px solid #e2e8f0; border-radius: 0; background: transparent; }
+      .nav-menu .dropdown-item { padding: 0.5rem 1rem; }
+    }
+    #journalsTable thead th {
+      background-color: #1e293b !important;
+      color: #ffffff !important;
+      font-weight: 600;
+      border: none;
+    }
+    /* Custom Pagination Styling */
+    .pagination {
+      gap: 8px;
+    }
+    .pagination .page-item .page-link {
+      width: 42px;
+      height: 42px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50% !important;
+      border: 1px solid var(--border) !important;
+      color: var(--slate-700) !important;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04) !important;
+      background-color: var(--white) !important;
+    }
+    .pagination .page-item.active .page-link {
+      background: linear-gradient(135deg, #0ea5e9 0%, #2563eb 100%) !important;
+      color: var(--white) !important;
+      border-color: transparent !important;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25) !important;
+    }
+    .pagination .page-item:not(.active):not(.disabled) .page-link:hover {
+      background-color: var(--slate-100) !important;
+      color: #0ea5e9 !important;
+      transform: translateY(-2px);
+      border-color: #bae6fd !important;
+      box-shadow: 0 6px 12px rgba(14, 165, 233, 0.15) !important;
+    }
+    .pagination .page-item.disabled .page-link {
+      opacity: 0.5;
+      background-color: #f8fafc !important;
+      color: var(--slate-300) !important;
+      cursor: not-allowed;
+      border-color: var(--border) !important;
+    }
+    /* Unified Search Bar */
+    .search-bar-unified {
+      display: flex;
+      align-items: center;
+      background: #ffffff;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 999px;
+      padding: 0.3rem 0.4rem 0.3rem 1rem;
+      gap: 0.5rem;
+      box-shadow: 0 2px 12px rgba(15, 23, 42, 0.06);
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+    .search-bar-unified:focus-within {
+      border-color: #0ea5e9;
+      box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.12);
+    }
+    .search-bar-icon {
+      color: #94a3b8;
+      flex-shrink: 0;
+    }
+    .search-bar-unified input {
+      border: none;
+      outline: none;
+      background: transparent;
+      font-size: 0.875rem;
+      color: #0f172a;
+      width: 100%;
+      padding: 0.25rem 0;
+    }
+    .search-bar-unified input::placeholder { color: #94a3b8; }
+    .search-bar-unified button {
+      flex-shrink: 0;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: none;
+      background: linear-gradient(135deg, #0ea5e9 0%, #2563eb 100%);
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .search-bar-unified button:hover {
+      transform: scale(1.08);
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════ NAVBAR ═══════════ -->
+<header class="site-nav" id="siteNav"></header>
+
+<!-- ═══════════ KONTEN UTAMA ═══════════ -->
+<section class="section position-relative overflow-hidden" style="min-height: 80vh; padding-top: 6rem; padding-bottom: 4rem; background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);">
+  <!-- Glowing Background Blobs -->
+  <div class="bg-glowing-blob" style="top: 5%; right: -10%;"></div>
+  <div class="bg-glowing-blob" style="bottom: 5%; left: -10%; background: radial-gradient(circle, rgba(22, 163, 74, 0.08) 0%, rgba(22, 163, 74, 0) 70%);"></div>
+
+  <div class="container-fluid px-4 px-md-5 mt-2 position-relative" style="z-index: 1;">
+    <div class="mb-4" data-aos="fade-up">
+      <a href="penelitian.html" class="btn-back-round" title="Kembali ke Layanan Akademik">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+      </a>
+    </div>
+    <div class="row mb-4 align-items-center" data-aos="fade-up">
+      <div class="col-md-8">
+        <h4 class="fw-bold mb-2" style="color: #0369a1;"><span class="text-gradient">Daftar Hasil Penelitian & Jurnal</span></h4>
+        <p class="text-secondary mb-0">Berikut adalah daftar penelitian, tugas akhir, dan jurnal yang telah diselesaikan dan dilaporkan.</p>
+      </div>
+      <div class="col-md-4 mt-3 mt-md-0 text-md-end">
+        <div class="search-bar-unified">
+          <svg class="search-bar-icon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          <input type="text" id="searchField" placeholder="Cari judul / penulis..." onkeyup="searchJournals()">
+          <button type="button" onclick="searchJournals()" title="Cari">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card glass-card border-0 shadow-lg" data-aos="fade-up" data-aos-delay="100" style="overflow: hidden;">
+      <div class="card-body p-0" style="border-radius: inherit;">
+        <div class="table-responsive" style="border-radius: inherit;">
+          <table class="table table-hover align-middle mb-0" id="journalsTable" style="font-size: 0.9rem;">
+            <thead>
+              <tr>
+                <th scope="col" class="py-3 px-4 text-center" style="width: 5%; border: none;">NO</th>
+                <th scope="col" class="py-3 px-4" style="width: 60%; border: none;">JUDUL</th>
+                <th scope="col" class="py-3 px-4" style="width: 25%; border: none;">PENULIS</th>
+                <th scope="col" class="py-3 px-4 text-center" style="width: 10%; border: none;">AKSI</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="text-center px-4 fw-bold text-secondary">1</td>
+                <td class="px-4 fw-semibold text-dark" style="line-height: 1.5;">Pengalaman Penderita HIV Pada Lelaki Suka Lelaki (LSL): Analisis Kualitatif Tentang Persepsi Diri...</td>
+                <td class="px-4 text-secondary">Dewi Purnamawati</td>
+                <td class="px-4 text-center">
+                  <button class="btn btn-premium-gradient btn-sm px-3 py-1.5 fw-bold shadow-sm d-inline-flex align-items-center" style="padding: 0.4rem 1rem !important; font-size: 0.8rem; border-radius: 8px;" onclick="alert('Abstrak dan dokumen lengkap belum tersedia secara publik. Silakan hubungi PPID Diskominfo.')">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="me-1"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                    Lihat
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td class="text-center px-4 fw-bold text-secondary">2</td>
+                <td class="px-4 fw-semibold text-dark" style="line-height: 1.5;">SELF-EFFICACY AMONG PEOPLE LIVING WITH HIV/AIDS AFTER COVID-19 PANDEMIC</td>
+                <td class="px-4 text-secondary">Dewi Purnamawati</td>
+                <td class="px-4 text-center">
+                  <button class="btn btn-premium-gradient btn-sm px-3 py-1.5 fw-bold shadow-sm d-inline-flex align-items-center" style="padding: 0.4rem 1rem !important; font-size: 0.8rem; border-radius: 8px;" onclick="alert('Abstrak dan dokumen lengkap belum tersedia secara publik. Silakan hubungi PPID Diskominfo.')">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="me-1"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                    Lihat
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td class="text-center px-4 fw-bold text-secondary">3</td>
+                <td class="px-4 fw-semibold text-dark" style="line-height: 1.5;">FAMILY SUPPORT FOR PEOPLE WITH HIV AND AIDS (PLWHA)</td>
+                <td class="px-4 text-secondary">Dewi Purnamawati</td>
+                <td class="px-4 text-center">
+                  <button class="btn btn-premium-gradient btn-sm px-3 py-1.5 fw-bold shadow-sm d-inline-flex align-items-center" style="padding: 0.4rem 1rem !important; font-size: 0.8rem; border-radius: 8px;" onclick="alert('Abstrak dan dokumen lengkap belum tersedia secara publik. Silakan hubungi PPID Diskominfo.')">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="me-1"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                    Lihat
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td class="text-center px-4 fw-bold text-secondary">4</td>
+                <td class="px-4 fw-semibold text-dark" style="line-height: 1.5;">Religiusitas Homoseksual dengan HIV</td>
+                <td class="px-4 text-secondary">Dewi Purnamawati</td>
+                <td class="px-4 text-center">
+                  <button class="btn btn-premium-gradient btn-sm px-3 py-1.5 fw-bold shadow-sm d-inline-flex align-items-center" style="padding: 0.4rem 1rem !important; font-size: 0.8rem; border-radius: 8px;" onclick="alert('Abstrak dan dokumen lengkap belum tersedia secara publik. Silakan hubungi PPID Diskominfo.')">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="me-1"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                    Lihat
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td class="text-center px-4 fw-bold text-secondary">5</td>
+                <td class="px-4 fw-semibold text-dark" style="line-height: 1.5;">Faktor-Faktor Yang Berhubungan Dengan Kepatuhan Minum Obat Pada Pasien Diabetes Melitus Tipe 2...</td>
+                <td class="px-4 text-secondary">Erina Dewy Pramesti</td>
+                <td class="px-4 text-center">
+                  <button class="btn btn-premium-gradient btn-sm px-3 py-1.5 fw-bold shadow-sm d-inline-flex align-items-center" style="padding: 0.4rem 1rem !important; font-size: 0.8rem; border-radius: 8px;" onclick="alert('Abstrak dan dokumen lengkap belum tersedia secara publik. Silakan hubungi PPID Diskominfo.')">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="me-1"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                    Lihat
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td class="text-center px-4 fw-bold text-secondary">6</td>
+                <td class="px-4 fw-semibold text-dark" style="line-height: 1.5;">Hubungan Pengetahuan dan Dukungan Keluarga Terhadap Manajemen Diri Pada Pasien Diabetes...</td>
+                <td class="px-4 text-secondary">Mashiroh Irchanna Hartanti</td>
+                <td class="px-4 text-center">
+                  <button class="btn btn-premium-gradient btn-sm px-3 py-1.5 fw-bold shadow-sm d-inline-flex align-items-center" style="padding: 0.4rem 1rem !important; font-size: 0.8rem; border-radius: 8px;" onclick="alert('Abstrak dan dokumen lengkap belum tersedia secara publik. Silakan hubungi PPID Diskominfo.')">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="me-1"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                    Lihat
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td class="text-center px-4 fw-bold text-secondary">7</td>
+                <td class="px-4 fw-semibold text-dark" style="line-height: 1.5;">ANALISIS KOMUNIKASI INTERPERSONAL KADER DALAM PROGRAM AKSELERASI GERAKAN ELIMINASI...</td>
+                <td class="px-4 text-secondary">Hanna Attaya Putri</td>
+                <td class="px-4 text-center">
+                  <button class="btn btn-premium-gradient btn-sm px-3 py-1.5 fw-bold shadow-sm d-inline-flex align-items-center" style="padding: 0.4rem 1rem !important; font-size: 0.8rem; border-radius: 8px;" onclick="alert('Abstrak dan dokumen lengkap belum tersedia secara publik. Silakan hubungi PPID Diskominfo.')">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="me-1"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                    Lihat
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td class="text-center px-4 fw-bold text-secondary">8</td>
+                <td class="px-4 fw-semibold text-dark" style="line-height: 1.5;">Gambaran Epidemiologi Kasus Campak di Wilayah Kota Bogor Tahun 2022-2024</td>
+                <td class="px-4 text-secondary">Siti Setia Hidiyah Wati</td>
+                <td class="px-4 text-center">
+                  <button class="btn btn-premium-gradient btn-sm px-3 py-1.5 fw-bold shadow-sm d-inline-flex align-items-center" style="padding: 0.4rem 1rem !important; font-size: 0.8rem; border-radius: 8px;" onclick="alert('Abstrak dan dokumen lengkap belum tersedia secara publik. Silakan hubungi PPID Diskominfo.')">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="me-1"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                    Lihat
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td class="text-center px-4 fw-bold text-secondary">9</td>
+                <td class="px-4 fw-semibold text-dark" style="line-height: 1.5;">ANALISIS DETERMINAN STUNTING DI KABUPATEN BOGOR DAN KOTA BOGOR: PENDEKATAN SPASIAL...</td>
+                <td class="px-4 text-secondary">LUKMAN PERDANA SOFYAN</td>
+                <td class="px-4 text-center">
+                  <button class="btn btn-premium-gradient btn-sm px-3 py-1.5 fw-bold shadow-sm d-inline-flex align-items-center" style="padding: 0.4rem 1rem !important; font-size: 0.8rem; border-radius: 8px;" onclick="alert('Abstrak dan dokumen lengkap belum tersedia secara publik. Silakan hubungi PPID Diskominfo.')">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="me-1"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                    Lihat
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td class="text-center px-4 fw-bold text-secondary">10</td>
+                <td class="px-4 fw-semibold text-dark" style="line-height: 1.5;">Efektifitas Buku Audio dalam Meningkatkan Pengetahuan Kesehatan Reproduksi bagi Perempuan...</td>
+                <td class="px-4 text-secondary">Novita Dewi Pramanik</td>
+                <td class="px-4 text-center">
+                  <button class="btn btn-premium-gradient btn-sm px-3 py-1.5 fw-bold shadow-sm d-inline-flex align-items-center" style="padding: 0.4rem 1rem !important; font-size: 0.8rem; border-radius: 8px;" onclick="alert('Abstrak dan dokumen lengkap belum tersedia secara publik. Silakan hubungi PPID Diskominfo.')">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="me-1"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                    Lihat
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Paginasi -->
+    <nav aria-label="Page navigation" class="mt-4 pb-5" data-aos="fade-up">
+      <ul class="pagination justify-content-center">
+        <li class="page-item disabled">
+          <a class="page-link border-0" href="#" aria-label="Sebelumnya" title="Sebelumnya">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+          </a>
+        </li>
+        <li class="page-item active"><a class="page-link border-0" href="#">1</a></li>
+        <li class="page-item"><a class="page-link border-0" href="#">2</a></li>
+        <li class="page-item"><a class="page-link border-0" href="#">3</a></li>
+        <li class="page-item">
+          <a class="page-link border-0" href="#" aria-label="Selanjutnya" title="Selanjutnya">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+          </a>
+        </li>
+      </ul>
+    </nav>
+    
+  </div>
+</section>
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="row g-5">
+
+      <!-- Brand -->
+      <div class="col-lg-4">
+        <div class="footer-brand d-flex align-items-center gap-2 mb-3">
+          <img src="images/kominfo.jpg" alt="Logo" class="rounded-2">
+          <strong>Diskominfo Kota Bogor</strong>
+        </div>
+        <p class="footer-desc">Membangun ekosistem digital yang inovatif dan transparan untuk pelayanan publik Kota Bogor yang lebih baik.</p>
+      </div>
+
+      <!-- Navigasi -->
+      <div class="col-sm-6 col-lg-2">
+        <p class="footer-heading">Navigasi</p>
+        <div class="footer-links">
+          <a href="index.php">Beranda</a>
+          <a href="sejarah.php">Sejarah</a>
+          <a href="visi-misi.php">Visi &amp; Misi</a>
+          <a href="laporan.php">Pengaduan</a>
+          <a href="berita.php">Berita</a>
+          <a href="cctv.php">CCTV</a>
+        </div>
+      </div>
+
+      <!-- Layanan -->
+      <div class="col-sm-6 col-lg-2">
+        <p class="footer-heading">Layanan</p>
+        <div class="footer-links">
+          <a href="https://ppid.kotabogor.go.id" target="_blank">PPID</a>
+          <a href="https://smartcity.kotabogor.go.id" target="_blank">Smart City</a>
+        </div>
+      </div>
+
+      <!-- Kontak -->
+      <div class="col-lg-4">
+        <p class="footer-heading">Kontak</p>
+        <div class="footer-contact">
+          <div class="footer-contact-item">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <span>Jl. Ir. H. Juanda No.10, Kota Bogor, Jawa Barat</span>
+          </div>
+          <div class="footer-contact-item">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            <span>kominfo@kotabogor.go.id</span>
+          </div>
+          <div class="footer-contact-item">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12.7 19.79 19.79 0 0 1 1.62 4.07 2 2 0 0 1 3.6 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            <span>(0251) 8321075</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      &copy; 2026 Diskominfo Kota Bogor. Hak Cipta Dilindungi.
+    </div>
+  </div>
+</footer>
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+<script src="assets/js/main.js"></script>
+<script src="assets/js/navbar.js"></script>
+<script>
+  AOS.init({ once: true, duration: 560, offset: 30, easing: 'ease-out-cubic' });
+
+  function searchJournals() {
+    const input = document.getElementById('searchField').value.toLowerCase();
+    const table = document.getElementById('journalsTable');
+    const trs = table.getElementsByTagName('tbody')[0].getElementsByTagName('tr');
+
+    for (let i = 0; i < trs.length; i++) {
+      const titleTd = trs[i].getElementsByTagName('td')[1];
+      const authorTd = trs[i].getElementsByTagName('td')[2];
+      if (titleTd && authorTd) {
+        const titleText = titleTd.textContent || titleTd.innerText;
+        const authorText = authorTd.textContent || authorTd.innerText;
+        if (titleText.toLowerCase().indexOf(input) > -1 || authorText.toLowerCase().indexOf(input) > -1) {
+          trs[i].style.display = "";
+        } else {
+          trs[i].style.display = "none";
+        }
+      }
+    }
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Informasi Penelitian & Jurnal — Diskominfo Kota Bogor</title>
+  <meta name="description" content="Dinas Komunikasi dan Informatika Kota Bogor — Portal layanan digital, informasi publik, dan pengaduan masyarakat.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+  <link rel="stylesheet" href="assets/css/app.css">
+  
+  <style>
+    /* CSS Tambahan untuk memastikan navbar hover dan tanpa dot di mobile */
+    .nav-item { list-style: none !important; }
+    .nav-menu .dropdown-menu { border: none; box-shadow: 0 4px 15px rgba(0,0,0,0.08); border-radius: 12px; }
+    .nav-menu .dropdown-item { padding: 0.6rem 1.2rem; border-radius: 6px; margin: 2px 8px; width: auto; font-weight: 500; }
+    .nav-menu .dropdown-item:hover { background-color: #f1f5f9; color: #0ea5e9; }
+    
+    @media (max-width: 991px) {
+      .nav-menu .dropdown-menu { display: block !important; box-shadow: none !important; padding: 0; margin-left: 1rem; border-left: 2px solid #e2e8f0; border-radius: 0; background: transparent; }
+      .nav-menu .dropdown-item { padding: 0.5rem 1rem; }
+    }
+
+    /* Efek Hover untuk Card Navigasi */
+    .hover-scale {
+      transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+      border: 1px solid rgba(0,0,0,0.05);
+      background-color: #ffffff;
+      cursor: pointer;
+    }
+    .hover-scale:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 15px 35px rgba(14, 165, 233, 0.15) !important;
+      border-color: #bae6fd;
+    }
+    .icon-box {
+      width: 55px;
+      height: 55px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.2rem;
+      transition: all 0.4s ease;
+    }
+    .hover-scale:hover .icon-box {
+      transform: scale(1.1) rotate(5deg);
+    }
+    
+    .icon-penelitian { background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%); color: #0284c7; }
+    .icon-magang { background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%); color: #16a34a; }
+    .icon-jurnal { background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); color: #d97706; }
+
+    /* Style Premium untuk Wrapper Carousel (Tanpa Padding Putih) */
+    .carousel-wrapper-premium {
+      background: #000000;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+      border: 1px solid rgba(255,255,255,0.2);
+      transition: all 0.4s ease;
+      height: 550px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    
+    .carousel-wrapper-premium:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+    }
+
+    /* Style Gambar Carousel (Blur Background + Object Fit Contain) */
+    .poster-bg-blur {
+      position: absolute;
+      top: -10%; left: -10%; right: -10%; bottom: -10%;
+      width: 120%; height: 120%;
+      object-fit: cover;
+      filter: blur(25px) brightness(0.6);
+      z-index: 1;
+      transition: opacity 0.5s ease;
+    }
+
+    .poster-img {
+      position: relative;
+      display: block;
+      width: auto;
+      height: 100%;
+      max-width: 100%;
+      margin: 0 auto;
+      z-index: 2;
+      transition: transform 0.6s ease;
+      filter: drop-shadow(0 10px 30px rgba(0,0,0,0.5));
+      border-radius: 16px;
+    }
+
+    .carousel-item.active .poster-img {
+      animation: zoomIn 0.8s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+    }
+    
+    @keyframes zoomIn {
+      from { transform: scale(0.95); opacity: 0.8; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    /* Navigasi Bulat Semi-Transparan Modern */
+    .carousel-control-prev,
+    .carousel-control-next {
+      width: 45px;
+      height: 45px;
+      background-color: rgba(0, 0, 0, 0.4);
+      border-radius: 50%;
+      top: 50%;
+      transform: translateY(-50%);
+      opacity: 0;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(8px);
+      z-index: 10;
+    }
+    .carousel-control-prev { left: 1rem; }
+    .carousel-control-next { right: 1rem; }
+    
+    .carousel-wrapper-premium:hover .carousel-control-prev,
+    .carousel-wrapper-premium:hover .carousel-control-next {
+      opacity: 1;
+    }
+    .carousel-control-prev:hover,
+    .carousel-control-next:hover {
+      background-color: rgba(0, 0, 0, 0.8);
+      transform: translateY(-50%) scale(1.1);
+    }
+
+    .carousel-control-prev-icon,
+    .carousel-control-next-icon {
+      width: 1.2rem;
+      height: 1.2rem;
+      filter: none;
+    }
+
+    /* Indikator Slide */
+    .carousel-indicators {
+      bottom: 1rem;
+      margin-bottom: 0;
+      z-index: 10;
+    }
+    .carousel-indicators button {
+      width: 8px !important;
+      height: 8px !important;
+      border-radius: 50%;
+      background-color: rgba(255,255,255,0.4) !important;
+      border: none !important;
+      margin: 0 4px !important;
+      transition: all 0.4s ease !important;
+    }
+    .carousel-indicators button.active {
+      width: 24px !important;
+      border-radius: 4px;
+      background-color: #ffffff !important;
+    }
+
+    @media (max-width: 768px) {
+      .carousel-wrapper-premium { height: 450px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════ NAVBAR ═══════════ -->
+<header class="site-nav" id="siteNav"></header>
+
+<!-- ═══════════ KONTEN UTAMA ═══════════ -->
+<section class="section d-flex align-items-center position-relative overflow-hidden" style="min-height: 85vh; background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%); padding-top: 8rem; padding-bottom: 4rem;">
+  <!-- Glowing Background Blobs -->
+  <div class="bg-glowing-blob" style="top: -10%; left: -10%;"></div>
+  <div class="bg-glowing-blob" style="bottom: -10%; right: -10%; background: radial-gradient(circle, rgba(22, 163, 74, 0.08) 0%, rgba(22, 163, 74, 0) 70%);"></div>
+
+  <div class="container mt-2 position-relative" style="z-index: 1;">
+    <div class="row align-items-center justify-content-between g-5">
+      
+      <!-- Bagian Kiri: Penjelasan & Menu Navigasi -->
+      <div class="col-lg-6" data-aos="fade-right">
+        
+        <div class="mb-5 pe-lg-4">
+          <span class="badge rounded-pill mb-3 shadow-sm fw-semibold" style="background-color: #e0f2fe; color: #0284c7; border: 1px solid #bae6fd; padding: 8px 16px;">Layanan Akademik</span>
+          <h2 class="display-6 fw-bold mb-4" style="color: #0f172a; line-height: 1.2; letter-spacing: -0.5px;">Pusat <span class="text-gradient">Penelitian, Magang</span> <br>& <span class="text-gradient">Publikasi Jurnal</span></h2>
+          <p class="text-secondary" style="font-size: 1.1rem; line-height: 1.7;">
+            Diskominfo Kota Bogor memfasilitasi para mahasiswa, peneliti, dan akademisi untuk melaksanakan berbagai kegiatan akademik. Mulai dari pengajuan izin penelitian, program magang profesional (PKL), hingga pengumpulan berkas jurnal atau karya tulis ilmiah Anda secara terintegrasi.
+          </p>
+          <p class="text-secondary mb-0 mt-3 fw-medium">Silakan pilih layanan yang Anda butuhkan di bawah ini:</p>
+        </div>
+
+        <div class="d-flex gap-3 flex-wrap">
+          <a href="submit-penelitian.html" class="text-decoration-none text-dark flex-grow-1" style="min-width: 140px; max-width: 180px;">
+            <div class="card rounded-4 shadow-sm text-center hover-scale p-4 d-flex flex-column align-items-center justify-content-center h-100">
+              <div class="icon-box icon-penelitian">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><circle cx="10" cy="13" r="2"></circle><line x1="11.4" y1="14.4" x2="15" y2="18"></line></svg>
+              </div>
+              <h6 class="fw-bold mb-2" style="font-size: 1rem;">Penelitian</h6>
+              <p class="text-muted mb-0" style="font-size: 0.75rem; line-height: 1.3;">Pengajuan Izin<br>Riset & Data</p>
+            </div>
+          </a>
+          
+          <a href="magang.html" class="text-decoration-none text-dark flex-grow-1" style="min-width: 140px; max-width: 180px;">
+            <div class="card rounded-4 shadow-sm text-center hover-scale p-4 d-flex flex-column align-items-center justify-content-center h-100">
+              <div class="icon-box icon-magang">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
+              </div>
+              <h6 class="fw-bold mb-2" style="font-size: 1rem;">Magang</h6>
+              <p class="text-muted mb-0" style="font-size: 0.75rem; line-height: 1.3;">Pendaftaran<br>Program PKL</p>
+            </div>
+          </a>
+
+          <a href="daftar-jurnal.html" class="text-decoration-none text-dark flex-grow-1" style="min-width: 140px; max-width: 180px;">
+            <div class="card rounded-4 shadow-sm text-center hover-scale p-4 d-flex flex-column align-items-center justify-content-center h-100">
+              <div class="icon-box icon-jurnal">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path><line x1="12" y1="6" x2="16" y2="6"></line><line x1="12" y1="10" x2="16" y2="10"></line></svg>
+              </div>
+              <h6 class="fw-bold mb-2" style="font-size: 1rem;">Jurnal</h6>
+              <p class="text-muted mb-0" style="font-size: 0.75rem; line-height: 1.3;">Daftar Laporan<br>Hasil Akhir</p>
+            </div>
+          </a>
+        </div>
+
+      </div>
+
+      <!-- Bagian Kanan: Carousel Slider Poster (Desain Premium) -->
+      <div class="col-lg-5" data-aos="fade-left">
+        <div class="carousel-wrapper-premium">
+          
+          <div id="penelitianCarousel" class="carousel slide w-100 h-100" data-bs-ride="carousel">
+            
+            <div class="carousel-inner h-100">
+              
+              <!-- Slide 1 -->
+              <div class="carousel-item active h-100" data-bs-interval="5000">
+                <!-- Background blur dinamis dari gambar yang sama -->
+                <img src="images/poster1.jpeg" class="poster-bg-blur" alt="blur">
+                <!-- Gambar utama yang tampil utuh di depan -->
+                <img src="images/poster1.jpeg" class="poster-img p-2" alt="Informasi Dokumen">
+              </div>
+              
+              <!-- Slide 2 -->
+              <div class="carousel-item h-100" data-bs-interval="5000">
+                <img src="images/poster2.jpeg" class="poster-bg-blur" alt="blur">
+                <img src="images/poster2.jpeg" class="poster-img p-2" alt="Syarat Magang">
+              </div>
+              
+              <!-- Slide 3 -->
+              <div class="carousel-item h-100" data-bs-interval="5000">
+                <img src="images/poster3.jpeg" class="poster-bg-blur" alt="blur">
+                <img src="images/poster3.jpeg" class="poster-img p-2" alt="Alur Penelitian">
+              </div>
+              
+            </div>
+            
+            <!-- Tombol Navigasi Premium -->
+            <button class="carousel-control-prev" type="button" data-bs-target="#penelitianCarousel" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#penelitianCarousel" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+
+            <!-- Indikator Slide Modern -->
+            <div class="carousel-indicators">
+              <button type="button" data-bs-target="#penelitianCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+              <button type="button" data-bs-target="#penelitianCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+              <button type="button" data-bs-target="#penelitianCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ SECTION ALUR PELAYANAN ═══════════ -->
+<section class="section py-5" style="background: #ffffff; position: relative; overflow: hidden;">
+  <div class="container position-relative" style="z-index: 1;">
+    <div class="text-center mb-5" data-aos="fade-up">
+      <span class="badge rounded-pill mb-2 shadow-sm fw-semibold" style="background-color: #dcfce7; color: #16a34a; border: 1px solid #bbf7d0; padding: 6px 12px;">Alur Kerja</span>
+      <h3 class="fw-bold mb-3 text-dark">Cara Mudah Mengajukan <span class="text-gradient">Layanan Akademik</span></h3>
+      <p class="text-secondary mx-auto" style="max-width: 600px; font-size: 0.95rem;">Ikuti 4 langkah mudah berikut untuk menyelesaikan pengajuan penelitian, program magang, atau publikasi jurnal Anda.</p>
+    </div>
+
+    <div class="row g-4" data-aos="fade-up" data-aos-delay="100">
+      <!-- Langkah 1 -->
+      <div class="col-md-3 col-sm-6">
+        <div class="card hover-glow-card border-0 shadow-sm p-4 text-center h-100 position-relative">
+          <div class="d-flex align-items-center justify-content-center mx-auto mb-3" style="width: 50px; height: 50px; border-radius: 50%; background: #e0f2fe; color: #0284c7; font-weight: 700;">1</div>
+          <h6 class="fw-bold mb-2">Pilih Layanan</h6>
+          <p class="text-muted small mb-0">Tentukan kebutuhan Anda: Penelitian, Magang, atau publikasi Jurnal.</p>
+        </div>
+      </div>
+      
+      <!-- Langkah 2 -->
+      <div class="col-md-3 col-sm-6">
+        <div class="card hover-glow-card border-0 shadow-sm p-4 text-center h-100">
+          <div class="d-flex align-items-center justify-content-center mx-auto mb-3" style="width: 50px; height: 50px; border-radius: 50%; background: #dcfce7; color: #16a34a; font-weight: 700;">2</div>
+          <h6 class="fw-bold mb-2">Lengkapi Dokumen</h6>
+          <p class="text-muted small mb-0">Siapkan berkas administrasi seperti Surat Pengantar dari Kampus/Sekolah.</p>
+        </div>
+      </div>
+
+      <!-- Langkah 3 -->
+      <div class="col-md-3 col-sm-6">
+        <div class="card hover-glow-card border-0 shadow-sm p-4 text-center h-100">
+          <div class="d-flex align-items-center justify-content-center mx-auto mb-3" style="width: 50px; height: 50px; border-radius: 50%; background: #fef3c7; color: #d97706; font-weight: 700;">3</div>
+          <h6 class="fw-bold mb-2">Verifikasi Data</h6>
+          <p class="text-muted small mb-0">Tim Diskominfo akan meninjau kelengkapan berkas Anda secara daring.</p>
+        </div>
+      </div>
+
+      <!-- Langkah 4 -->
+      <div class="col-md-3 col-sm-6">
+        <div class="card hover-glow-card border-0 shadow-sm p-4 text-center h-100">
+          <div class="d-flex align-items-center justify-content-center mx-auto mb-3" style="width: 50px; height: 50px; border-radius: 50%; background: #fee2e2; color: #dc2626; font-weight: 700;">4</div>
+          <h6 class="fw-bold mb-2">Mulai Kegiatan</h6>
+          <p class="text-muted small mb-0">Setelah disetujui, Anda siap memulai riset, magang, atau berkas jurnal tercatat.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ SECTION STATISTIK & FAQ ═══════════ -->
+<section class="section py-5 position-relative overflow-hidden" style="background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);">
+  <div class="bg-glowing-blob" style="top: 10%; left: -10%; background: radial-gradient(circle, rgba(22, 163, 74, 0.05) 0%, rgba(22, 163, 74, 0) 70%);"></div>
+  <div class="bg-glowing-blob" style="bottom: 10%; right: -10%;"></div>
+
+  <div class="container position-relative" style="z-index: 1;">
+    <div class="row g-5">
+      <!-- Kiri: Statistik -->
+      <div class="col-lg-5" data-aos="fade-right">
+        <div class="pe-lg-3">
+          <span class="badge rounded-pill mb-2 shadow-sm fw-semibold" style="background-color: #e0f2fe; color: #0284c7; border: 1px solid #bae6fd; padding: 6px 12px;">Statistik</span>
+          <h3 class="fw-bold mb-4 text-dark">Kontribusi Diskominfo dalam <span class="text-gradient">Dunia Akademik</span></h3>
+          <p class="text-secondary mb-4" style="font-size: 0.95rem;">Kami berkomitmen terus mendukung program pendidikan tinggi dan riset ilmiah guna mendorong inovasi digital di wilayah Kota Bogor.</p>
+          
+          <div class="row g-3">
+            <div class="col-6">
+              <div class="card glass-card p-3 text-center border-0 shadow-sm">
+                <h3 class="fw-bold mb-0 text-primary" style="font-size: 1.8rem;">350+</h3>
+                <small class="text-muted" style="font-size: 0.75rem;">Izin Penelitian</small>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="card glass-card p-3 text-center border-0 shadow-sm">
+                <h3 class="fw-bold mb-0 text-success" style="font-size: 1.8rem;">520+</h3>
+                <small class="text-muted" style="font-size: 0.75rem;">Alumni Magang</small>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="card glass-card p-3 text-center border-0 shadow-sm">
+                <h3 class="fw-bold mb-0 text-warning" style="font-size: 1.8rem;">170+</h3>
+                <small class="text-muted" style="font-size: 0.75rem;">Laporan Jurnal Terpublikasi</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Kanan: FAQ -->
+      <div class="col-lg-7" data-aos="fade-left">
+        <span class="badge rounded-pill mb-2 shadow-sm fw-semibold" style="background-color: #fef3c7; color: #d97706; border: 1px solid #fde68a; padding: 6px 12px;">FAQ</span>
+        <h3 class="fw-bold mb-4 text-dark">Pertanyaan yang Sering Diajukan</h3>
+
+        <div class="accordion accordion-flush" id="faqAccordion">
+          
+          <div class="accordion-item bg-transparent border-bottom py-2">
+            <h2 class="accordion-header" id="faqHeadingOne">
+              <button class="accordion-button collapsed bg-transparent fw-bold text-dark px-0 py-3 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapseOne">
+                Berapa lama proses verifikasi pengajuan magang?
+              </button>
+            </h2>
+            <div id="faqCollapseOne" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+              <div class="accordion-body text-secondary px-0 py-2 small">
+                Proses verifikasi berkas dan persetujuan magang umumnya memakan waktu 3 hingga 5 hari kerja sejak dokumen lengkap diterima. Pemberitahuan kelulusan akan dikirimkan ke alamat email Anda.
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item bg-transparent border-bottom py-2">
+            <h2 class="accordion-header" id="faqHeadingTwo">
+              <button class="accordion-button collapsed bg-transparent fw-bold text-dark px-0 py-3 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapseTwo">
+                Apakah surat izin penelitian dari Kesbangpol wajib dilampirkan?
+              </button>
+            </h2>
+            <div id="faqCollapseTwo" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+              <div class="accordion-body text-secondary px-0 py-2 small">
+                Surat rekomendasi dari Kesbangpol bersifat opsional atau wajib tergantung pada ruang lingkup instansi riset Anda. Bagi mahasiswa yang membutuhkan riset data spesifik di kelurahan/kecamatan, kami sangat menyarankan untuk melampirkannya.
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item bg-transparent border-bottom py-2">
+            <h2 class="accordion-header" id="faqHeadingThree">
+              <button class="accordion-button collapsed bg-transparent fw-bold text-dark px-0 py-3 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapseThree">
+                Bagaimana cara melihat status pengajuan permohonan saya?
+              </button>
+            </h2>
+            <div id="faqCollapseThree" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+              <div class="accordion-body text-secondary px-0 py-2 small">
+                Anda dapat menggunakan tab "Status Pengajuan" di halaman layanan terkait, lalu masukkan Nomor Tiket yang dikirimkan ke email Anda saat pertama kali mendaftar.
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="row g-5">
+
+      <!-- Brand -->
+      <div class="col-lg-4">
+        <div class="footer-brand d-flex align-items-center gap-2 mb-3">
+          <img src="images/kominfo.jpg" alt="Logo" class="rounded-2">
+          <strong>Diskominfo Kota Bogor</strong>
+        </div>
+        <p class="footer-desc">Membangun ekosistem digital yang inovatif dan transparan untuk pelayanan publik Kota Bogor yang lebih baik.</p>
+      </div>
+
+      <!-- Navigasi -->
+      <div class="col-sm-6 col-lg-2">
+        <p class="footer-heading">Navigasi</p>
+        <div class="footer-links">
+          <a href="index.php">Beranda</a>
+          <a href="sejarah.php">Sejarah</a>
+          <a href="visi-misi.php">Visi &amp; Misi</a>
+          <a href="laporan.php">Pengaduan</a>
+          <a href="berita.php">Berita</a>
+          <a href="cctv.php">CCTV</a>
+        </div>
+      </div>
+
+      <!-- Layanan -->
+      <div class="col-sm-6 col-lg-2">
+        <p class="footer-heading">Layanan</p>
+        <div class="footer-links">
+          <a href="https://ppid.kotabogor.go.id" target="_blank">PPID</a>
+          <a href="https://smartcity.kotabogor.go.id" target="_blank">Smart City</a>
+        </div>
+      </div>
+
+      <!-- Kontak -->
+      <div class="col-lg-4">
+        <p class="footer-heading">Kontak</p>
+        <div class="footer-contact">
+          <div class="footer-contact-item">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <span>Jl. Ir. H. Juanda No.10, Kota Bogor, Jawa Barat</span>
+          </div>
+          <div class="footer-contact-item">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            <span>kominfo@kotabogor.go.id</span>
+          </div>
+          <div class="footer-contact-item">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12.7 19.79 19.79 0 0 1 1.62 4.07 2 2 0 0 1 3.6 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            <span>(0251) 8321075</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      &copy; 2026 Diskominfo Kota Bogor. Hak Cipta Dilindungi.
+    </div>
+  </div>
+</footer>
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+<script src="assets/js/main.js"></script>
+<script src="assets/js/navbar.js"></script>
+<script>
+  AOS.init({ once: true, duration: 560, offset: 30, easing: 'ease-out-cubic' });
+</script>
+</body>
+</html>

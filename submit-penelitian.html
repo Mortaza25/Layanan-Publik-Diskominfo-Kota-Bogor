@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pengajuan Penelitian — Diskominfo Kota Bogor</title>
+  <meta name="description" content="Dinas Komunikasi dan Informatika Kota Bogor — Portal layanan digital, informasi publik, dan pengaduan masyarakat.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+  <link rel="stylesheet" href="assets/css/app.css">
+  
+  <style>
+    /* CSS Tambahan untuk memastikan navbar hover dan tanpa dot di mobile */
+    .nav-item { list-style: none !important; }
+    .nav-menu .dropdown-menu { border: none; box-shadow: 0 4px 15px rgba(0,0,0,0.08); border-radius: 12px; }
+    .nav-menu .dropdown-item { padding: 0.6rem 1.2rem; border-radius: 6px; margin: 2px 8px; width: auto; font-weight: 500; }
+    .nav-menu .dropdown-item:hover { background-color: #f1f5f9; color: #0ea5e9; }
+    
+    @media (max-width: 991px) {
+      .nav-menu .dropdown-menu { display: block !important; box-shadow: none !important; padding: 0; margin-left: 1rem; border-left: 2px solid #e2e8f0; border-radius: 0; background: transparent; }
+      .nav-menu .dropdown-item { padding: 0.5rem 1rem; }
+    }
+
+    .custom-nav-pills .nav-link {
+      color: #475569;
+      background-color: #fff;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 10px 20px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: all 0.2s ease;
+    }
+    .custom-nav-pills .nav-link:hover {
+      border-color: #94a3b8;
+      background-color: #f8fafc;
+    }
+    .custom-nav-pills .nav-link.active {
+      color: #fff;
+      background-color: #0ea5e9;
+      border-color: #0ea5e9;
+    }
+    .info-box {
+      background-color: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 24px;
+    }
+    .info-box h5 {
+      color: #dc2626; /* Red color for warning/important */
+      font-weight: 700;
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+    }
+    .info-box ol {
+      padding-left: 1rem;
+      color: #475569;
+      font-size: 0.9rem;
+      line-height: 1.8;
+    }
+    .info-box ol li strong {
+      color: #1e293b;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════ NAVBAR ═══════════ -->
+<header class="site-nav" id="siteNav"></header>
+
+<!-- ═══════════ KONTEN UTAMA ═══════════ -->
+<section class="section position-relative overflow-hidden" style="padding-top: 6rem; padding-bottom: 4rem; background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);">
+  <!-- Glowing Background Blobs -->
+  <div class="bg-glowing-blob" style="top: 5%; right: -10%;"></div>
+  <div class="bg-glowing-blob" style="bottom: 5%; left: -10%; background: radial-gradient(circle, rgba(22, 163, 74, 0.08) 0%, rgba(22, 163, 74, 0) 70%);"></div>
+
+  <div class="container mt-2 position-relative" style="z-index: 1;">
+    <div class="mb-4">
+      <a href="penelitian.html" class="btn-back-round" title="Kembali ke Layanan Akademik">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+      </a>
+    </div>
+
+    <!-- Info Singkat Penelitian (Selalu Terlihat di Atas) -->
+    <div class="row align-items-center mb-5 mt-3" data-aos="fade-up">
+      <div class="col-md-6 mb-4 mb-md-0">
+        <img src="images/research.png" alt="Ilustrasi Penelitian" class="img-fluid rounded-4" style="object-fit: contain; width: 100%; max-height: 350px;">
+      </div>
+      <div class="col-md-6">
+        <h3 class="mb-3 fw-bold" style="color: #0369a1;">Portal <span class="text-gradient">Pengajuan Penelitian</span></h3>
+        <p class="text-secondary" style="line-height: 1.8;">
+          Diskominfo Kota Bogor membuka kesempatan bagi akademisi, peneliti, dan mahasiswa untuk melakukan penelitian di lingkungan Diskominfo. Ajukan permohonan Anda secara online, pantau status, dan unggah hasil penelitian melalui portal ini.
+        </p>
+        <div class="d-flex align-items-center gap-3 mt-4">
+          <div class="bg-light p-3 rounded text-center border" style="width: 100px;">
+            <h4 class="fw-bold mb-0" style="color: #0ea5e9;">4</h4>
+            <small class="text-muted">Bidang</small>
+          </div>
+          <div class="bg-light p-3 rounded text-center border" style="width: 100px;">
+            <h4 class="fw-bold mb-0" style="color: #0ea5e9;">50+</h4>
+            <small class="text-muted">Penelitian</small>
+          </div>
+          <div class="bg-light p-3 rounded text-center border" style="width: 100px;">
+            <h4 class="fw-bold mb-0" style="color: #0ea5e9;">100%</h4>
+            <small class="text-muted">Digital</small>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CARD UTAMA LAYANAN (Berisi Tabs & Form) -->
+    <div class="card glass-card shadow-lg border-0 mb-5" style="border-radius: 1.5rem; overflow: hidden;" data-aos="fade-up">
+      <div class="card-header bg-transparent border-0 pt-4 px-4 px-md-5 pb-0">
+        <!-- TABS NAVIGASI DI DALAM CARD -->
+        <ul class="nav nav-pills gap-2 custom-nav-pills" id="penelitianTabs" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="pengajuan-tab" data-bs-toggle="pill" data-bs-target="#pengajuan" type="button" role="tab">Pengajuan Permohonan</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="status-tab" data-bs-toggle="pill" data-bs-target="#status" type="button" role="tab">Cek Status</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="unggah-tab" data-bs-toggle="pill" data-bs-target="#unggah" type="button" role="tab">Unggah Jurnal</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="status-jurnal-tab" data-bs-toggle="pill" data-bs-target="#status-jurnal" type="button" role="tab">Status Jurnal</button>
+          </li>
+        </ul>
+      </div>
+
+      <div class="card-body p-4 p-md-5 pt-3">
+        <div class="tab-content" id="penelitianTabsContent">
+
+          <!-- TAB 1: PENGAJUAN PERMOHONAN -->
+          <div class="tab-pane fade show active" id="pengajuan" role="tabpanel">
+            <h4 class="fw-bold mb-4 text-dark">Formulir Pengajuan Permohonan Penelitian</h4>
+            <div class="row g-4">
+              <!-- Kolom Form (Kiri) -->
+              <div class="col-lg-7">
+                <form action="#" method="POST" enctype="multipart/form-data" class="needs-validation" novalidate>
+                  <div class="mb-3">
+                    <label class="form-label fw-semibold">Nama Lengkap</label>
+                    <input type="text" class="form-control form-control-premium" placeholder="Nama lengkap peneliti" required>
+                  </div>
+                  <div class="row g-3 mb-3">
+                    <div class="col-md-6">
+                      <label class="form-label fw-semibold">No Telepon</label>
+                      <input type="tel" class="form-control form-control-premium" placeholder="08xx-xxxx-xxxx" required>
+                    </div>
+                    <div class="col-md-6">
+                      <label class="form-label fw-semibold">Alamat Email</label>
+                      <input type="email" class="form-control form-control-premium" placeholder="email@domain.com" required>
+                    </div>
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label fw-semibold">Nama Instansi / Universitas</label>
+                    <input type="text" class="form-control form-control-premium" placeholder="Asal instansi atau universitas" required>
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label fw-semibold">Judul Penelitian</label>
+                    <input type="text" class="form-control form-control-premium" placeholder="Judul penelitian Anda" required>
+                  </div>
+                  <div class="row g-3 mb-3">
+                    <div class="col-md-6">
+                      <label class="form-label fw-semibold">Lokasi Penelitian</label>
+                      <select class="form-select form-control-premium" required>
+                        <option value="" selected disabled>-- Pilih Lokasi --</option>
+                        <option value="Diskominfo">Diskominfo Kota Bogor</option>
+                        <option value="Kecamatan">Kecamatan/Kelurahan</option>
+                        <option value="Publik">Ruang Publik / Masyarakat</option>
+                      </select>
+                    </div>
+                    <div class="col-md-6">
+                      <label class="form-label fw-semibold">Bidang Tujuan</label>
+                      <select class="form-select form-control-premium" required>
+                        <option value="" selected disabled>-- Pilih Bidang --</option>
+                        <option value="Aplikasi">Aplikasi / e-Government</option>
+                        <option value="IKP">Informasi &amp; Komunikasi Publik</option>
+                        <option value="Infrastruktur">Infrastruktur &amp; Jaringan</option>
+                        <option value="Statistik">Statistik Sektoral</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="row g-3 mb-4">
+                    <div class="col-md-6">
+                      <label class="form-label fw-semibold">Surat Penelitian (PDF)</label>
+                      <input type="file" class="form-control form-control-premium" accept=".pdf" required>
+                      <div class="form-text">Maks 2MB, format .pdf</div>
+                    </div>
+                    <div class="col-md-6">
+                      <label class="form-label fw-semibold">Surat Kesbangpol (PDF)</label>
+                      <input type="file" class="form-control form-control-premium" accept=".pdf">
+                      <div class="form-text">Maks 2MB, format .pdf</div>
+                    </div>
+                  </div>
+                  <div class="mt-2">
+                    <button type="button" class="btn btn-premium-gradient px-5 py-2" onclick="submitMock('pengajuan')">Submit Pengajuan</button>
+                  </div>
+                </form>
+              </div>
+
+              <!-- Kolom Info (Kanan) -->
+              <div class="col-lg-5">
+                <div class="alert-premium-warning">
+                  <h5>Informasi Penting!</h5>
+                  <ol class="ps-3 text-secondary small" style="line-height: 1.8;">
+                    <li class="mb-2">Pastikan data yang Anda kirimkan <strong>Valid</strong>.</li>
+                    <li class="mb-2"><strong>Nomor Tiket</strong> pengajuan akan dikirimkan melalui <strong>email Anda</strong>.</li>
+                    <li class="mb-2">Nomor Tiket dapat digunakan untuk <strong>memantau status permohonan</strong>.</li>
+                    <li>Jika disetujui, <strong>surat jawaban</strong> akan dikirim via email.</li>
+                  </ol>
+                  <div class="text-center mt-4">
+                    <img src="images/research.png" alt="Ilustrasi Penelitian" class="img-fluid rounded-4" style="max-height: 200px; object-fit: contain;">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- TAB 2: STATUS PENGAJUAN -->
+          <div class="tab-pane fade" id="status" role="tabpanel">
+            <h4 class="fw-bold mb-4 text-dark">Cek Status Pengajuan Penelitian</h4>
+            <div class="row g-4">
+              <div class="col-lg-7">
+                <form>
+                  <div class="mb-4">
+                    <label class="form-label fw-bold text-secondary small">Nomor Tiket Pengajuan</label>
+                    <input type="text" class="form-control form-control-lg form-control-premium" placeholder="Contoh: TKT-12345" required>
+                  </div>
+                  <button type="button" class="btn btn-premium-gradient px-4 py-2" onclick="checkStatusMock()">Cek Status</button>
+                </form>
+              </div>
+              <div class="col-lg-5">
+                <div class="p-4 rounded-4 bg-light border">
+                  <h5 class="fw-bold text-danger mb-3" style="font-size: 1rem;">Catatan</h5>
+                  <ol class="ps-3 text-secondary small" style="line-height: 1.8;">
+                    <li class="mb-2">Nomor Tiket dikirimkan ke email Anda setelah submit pengajuan.</li>
+                    <li>Cek folder <strong>Spam</strong> jika email tidak ditemukan di inbox.</li>
+                  </ol>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- TAB 3: UNGGAH JURNAL -->
+          <div class="tab-pane fade" id="unggah" role="tabpanel">
+            <h4 class="fw-bold mb-4 text-dark">Unggah Hasil Penelitian / Jurnal</h4>
+            <div class="row g-4">
+              <div class="col-lg-7">
+                <form>
+                  <div class="mb-3">
+                    <label class="form-label fw-semibold">Nomor Tiket Pengajuan</label>
+                    <input type="text" class="form-control form-control-premium" placeholder="Masukkan nomor tiket penelitian Anda" required>
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label fw-semibold">File Dokumen Final / Jurnal (PDF)</label>
+                    <input type="file" class="form-control form-control-premium" accept=".pdf" required>
+                    <div class="form-text">Format PDF, maksimal 10MB.</div>
+                  </div>
+                  <div class="mb-4">
+                    <label class="form-label fw-semibold">Link Publikasi Jurnal <span class="text-muted fw-normal">(Opsional)</span></label>
+                    <input type="url" class="form-control form-control-premium" placeholder="https://jurnal.universitas.ac.id/...">
+                  </div>
+                  <button type="button" class="btn btn-premium-gradient px-4 py-2" onclick="submitMock('jurnal')">Unggah Dokumen</button>
+                </form>
+              </div>
+              <div class="col-lg-5">
+                <div class="alert-premium-warning">
+                  <h5>Syarat Pengunggahan!</h5>
+                  <ol class="ps-3 text-secondary small" style="line-height: 1.8;">
+                    <li class="mb-2">Pastikan Nomor Tiket Anda telah <strong>disetujui</strong> sebelum mengunggah.</li>
+                    <li class="mb-2">File harus dalam format <strong>PDF</strong> dan tidak melebihi <strong>10MB</strong>.</li>
+                    <li>Cantumkan link publikasi jika hasil penelitian sudah dipublikasikan di jurnal ilmiah.</li>
+                  </ol>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- TAB 4: STATUS JURNAL -->
+          <div class="tab-pane fade" id="status-jurnal" role="tabpanel">
+            <h4 class="fw-bold mb-4 text-dark">Cek Status Verifikasi Jurnal</h4>
+            <div class="row g-4">
+              <div class="col-lg-7">
+                <form>
+                  <div class="mb-4">
+                    <label class="form-label fw-bold text-secondary small">Nomor Tiket</label>
+                    <input type="text" class="form-control form-control-lg form-control-premium" placeholder="Nomor Tiket (Contoh: TKT-12345)" required>
+                  </div>
+                  <button type="button" class="btn btn-premium-gradient px-4 py-2" onclick="checkStatusJurnalMock()">Cek Status Jurnal</button>
+                </form>
+              </div>
+              <div class="col-lg-5">
+                <div class="p-4 rounded-4 bg-light border">
+                  <h5 class="fw-bold text-danger mb-3" style="font-size: 1rem;">Catatan</h5>
+                  <p class="text-secondary small" style="line-height: 1.8;">
+                    Masukkan Nomor Tiket untuk melihat apakah dokumen akhir / jurnal Anda telah <strong>diverifikasi</strong> dan diterima oleh Diskominfo Kota Bogor.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="row g-5">
+
+      <!-- Brand -->
+      <div class="col-lg-4">
+        <div class="footer-brand d-flex align-items-center gap-2 mb-3">
+          <img src="images/kominfo.jpg" alt="Logo" class="rounded-2">
+          <strong>Diskominfo Kota Bogor</strong>
+        </div>
+        <p class="footer-desc">Membangun ekosistem digital yang inovatif dan transparan untuk pelayanan publik Kota Bogor yang lebih baik.</p>
+      </div>
+
+      <!-- Navigasi -->
+      <div class="col-sm-6 col-lg-2">
+        <p class="footer-heading">Navigasi</p>
+        <div class="footer-links">
+          <a href="index.php">Beranda</a>
+          <a href="sejarah.php">Sejarah</a>
+          <a href="visi-misi.php">Visi &amp; Misi</a>
+          <a href="laporan.php">Pengaduan</a>
+          <a href="berita.php">Berita</a>
+          <a href="cctv.php">CCTV</a>
+        </div>
+      </div>
+
+      <!-- Layanan -->
+      <div class="col-sm-6 col-lg-2">
+        <p class="footer-heading">Layanan</p>
+        <div class="footer-links">
+          <a href="https://ppid.kotabogor.go.id" target="_blank">PPID</a>
+          <a href="https://smartcity.kotabogor.go.id" target="_blank">Smart City</a>
+        </div>
+      </div>
+
+      <!-- Kontak -->
+      <div class="col-lg-4">
+        <p class="footer-heading">Kontak</p>
+        <div class="footer-contact">
+          <div class="footer-contact-item">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <span>Jl. Ir. H. Juanda No.10, Kota Bogor, Jawa Barat</span>
+          </div>
+          <div class="footer-contact-item">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            <span>kominfo@kotabogor.go.id</span>
+          </div>
+          <div class="footer-contact-item">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12.7 19.79 19.79 0 0 1 1.62 4.07 2 2 0 0 1 3.6 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            <span>(0251) 8321075</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      &copy; 2026 Diskominfo Kota Bogor. Hak Cipta Dilindungi.
+    </div>
+  </div>
+</footer>
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+<script src="assets/js/main.js"></script>
+<script src="assets/js/navbar.js"></script>
+<script>
+  AOS.init({ once: true, duration: 560, offset: 30, easing: 'ease-out-cubic' });
+
+  function submitMock(type) {
+    alert(type === 'pengajuan' 
+      ? "Pengajuan berhasil dikirim! Silakan periksa email Anda untuk Nomor Tiket."
+      : "Jurnal berhasil diunggah! Terima kasih telah melaporkan hasil penelitian Anda.");
+    window.location.reload();
+  }
+  function checkStatusMock() {
+    alert("Status Pengajuan: Sedang dalam proses verifikasi (Pending).");
+  }
+  function checkStatusJurnalMock() {
+    alert("Status Jurnal: Menunggu peninjauan admin.");
+  }
+</script>
+</body>
+</html>

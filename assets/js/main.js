@@ -1,0 +1,1 @@
+// Main project script placeholder
