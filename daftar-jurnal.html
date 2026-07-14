@@ -14,16 +14,6 @@
   <link rel="stylesheet" href="assets/css/app.css">
   
   <style>
-    /* CSS Tambahan untuk memastikan navbar hover dan tanpa dot di mobile */
-    .nav-item { list-style: none !important; }
-    .nav-menu .dropdown-menu { border: none; box-shadow: 0 4px 15px rgba(0,0,0,0.08); border-radius: 12px; }
-    .nav-menu .dropdown-item { padding: 0.6rem 1.2rem; border-radius: 6px; margin: 2px 8px; width: auto; font-weight: 500; }
-    .nav-menu .dropdown-item:hover { background-color: #f1f5f9; color: #0ea5e9; }
-    
-    @media (max-width: 991px) {
-      .nav-menu .dropdown-menu { display: block !important; box-shadow: none !important; padding: 0; margin-left: 1rem; border-left: 2px solid #e2e8f0; border-radius: 0; background: transparent; }
-      .nav-menu .dropdown-item { padding: 0.5rem 1rem; }
-    }
     #journalsTable thead th {
       background-color: #1e293b !important;
       color: #ffffff !important;
@@ -125,14 +115,14 @@
 <header class="site-nav" id="siteNav"></header>
 
 <!-- ═══════════ KONTEN UTAMA ═══════════ -->
-<section class="section position-relative overflow-hidden" style="min-height: 80vh; padding-top: 6rem; padding-bottom: 4rem; background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);">
+<section class="section position-relative" style="min-height: 80vh; padding-top: 6rem; padding-bottom: 4rem; background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);">
   <!-- Glowing Background Blobs -->
   <div class="bg-glowing-blob" style="top: 5%; right: -10%;"></div>
   <div class="bg-glowing-blob" style="bottom: 5%; left: -10%; background: radial-gradient(circle, rgba(22, 163, 74, 0.08) 0%, rgba(22, 163, 74, 0) 70%);"></div>
 
   <div class="container-fluid px-4 px-md-5 mt-2 position-relative" style="z-index: 1;">
-    <div class="mb-4" data-aos="fade-up">
-      <a href="penelitian.html" class="btn-back-round btn-back-static" title="Kembali ke Layanan Akademik">
+    <div class="mb-4 btn-back-wrapper">
+      <a href="penelitian.html" class="btn-back-round" title="Kembali ke Layanan Akademik">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
       </a>
     </div>

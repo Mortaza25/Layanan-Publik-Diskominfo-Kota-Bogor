@@ -757,11 +757,17 @@ ul { list-style: none; }
   transform: translateY(0) !important;
 }
 
-.btn-back-round {
-  position: fixed;
+.btn-back-wrapper {
+  position: sticky;
   top: 90px;
-  left: 30px;
   z-index: 1000;
+  height: 46px;
+  margin-bottom: 1.5rem;
+  pointer-events: none;
+}
+
+.btn-back-round {
+  position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -773,13 +779,19 @@ ul { list-style: none; }
   color: var(--slate-700) !important;
   box-shadow: 0 4px 15px rgba(15, 23, 42, 0.08) !important;
   transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  animation: backButtonFadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: 0.2s;
+  pointer-events: auto;
 }
 
-@media (max-width: 1400px) {
-  .btn-back-round {
-    position: absolute;
-    top: auto;
-    left: auto;
+@keyframes backButtonFadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
@@ -807,12 +819,60 @@ ul { list-style: none; }
   margin-bottom: 1rem !important;
 }
 
-/* Static Back Button Override (For table pages where layout is fluid/full-width) */
-.btn-back-static {
-  position: relative !important;
-  top: auto !important;
-  left: auto !important;
-  display: inline-flex !important;
-  margin-bottom: 1rem !important;
-  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.05) !important;
+/* Note: btn-back-static is deprecated and has been replaced by the container-aligned fixed position logic. */
+
+/* ─── NAVBAR DROPDOWN (Bootstrap override) ─── */
+.nav-item { list-style: none !important; }
+.nav-menu .dropdown-menu { border: none; box-shadow: 0 4px 15px rgba(0,0,0,0.08); border-radius: 12px; }
+.nav-menu .dropdown-item { padding: 0.6rem 1.2rem; border-radius: 6px; margin: 2px 8px; width: auto; font-weight: 500; }
+.nav-menu .dropdown-item:hover { background-color: #f1f5f9; color: #0ea5e9; }
+
+@media (max-width: 991px) {
+  .nav-menu .dropdown-menu { display: block !important; box-shadow: none !important; padding: 0; margin-left: 1rem; border-left: 2px solid #e2e8f0; border-radius: 0; background: transparent; }
+  .nav-menu .dropdown-item { padding: 0.5rem 1rem; }
 }
+
+/* ─── SHARED COMPONENTS (Custom Nav Pills & Info Box & Hover Card) ─── */
+.custom-nav-pills .nav-link {
+  color: #475569;
+  background-color: #fff;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+}
+.custom-nav-pills .nav-link:hover {
+  border-color: #94a3b8;
+  background-color: #f8fafc;
+}
+.custom-nav-pills .nav-link.active {
+  color: #fff;
+  background-color: #0ea5e9;
+  border-color: #0ea5e9;
+}
+.info-box {
+  background-color: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 24px;
+}
+.info-box h5 {
+  color: #dc2626; /* Red color for warning/important */
+  font-weight: 700;
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+}
+.info-box ol {
+  padding-left: 1rem;
+  color: #475569;
+  font-size: 0.9rem;
+  line-height: 1.8;
+}
+.info-box ol li strong {
+  color: #1e293b;
+}
+
+.hover-card { transition: all 0.3s ease; }
+.hover-card:hover { background-color: #fff !important; box-shadow: 0 5px 15px rgba(14, 165, 233, 0.15) !important; border-color: #0ea5e9 !important; }

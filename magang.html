@@ -13,61 +13,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
   <link rel="stylesheet" href="assets/css/app.css">
   
-  <style>
-    /* CSS Tambahan untuk memastikan navbar hover dan tanpa dot di mobile */
-    .nav-item { list-style: none !important; }
-    .nav-menu .dropdown-menu { border: none; box-shadow: 0 4px 15px rgba(0,0,0,0.08); border-radius: 12px; }
-    .nav-menu .dropdown-item { padding: 0.6rem 1.2rem; border-radius: 6px; margin: 2px 8px; width: auto; font-weight: 500; }
-    .nav-menu .dropdown-item:hover { background-color: #f1f5f9; color: #0ea5e9; }
-    
-    @media (max-width: 991px) {
-      .nav-menu .dropdown-menu { display: block !important; box-shadow: none !important; padding: 0; margin-left: 1rem; border-left: 2px solid #e2e8f0; border-radius: 0; background: transparent; }
-      .nav-menu .dropdown-item { padding: 0.5rem 1rem; }
-    }
 
-    .custom-nav-pills .nav-link {
-      color: #475569;
-      background-color: #fff;
-      border: 1px solid #cbd5e1;
-      border-radius: 8px;
-      padding: 10px 20px;
-      font-weight: 600;
-      font-size: 0.9rem;
-      transition: all 0.2s ease;
-    }
-    .custom-nav-pills .nav-link:hover {
-      border-color: #94a3b8;
-      background-color: #f8fafc;
-    }
-    .custom-nav-pills .nav-link.active {
-      color: #fff;
-      background-color: #0ea5e9;
-      border-color: #0ea5e9;
-    }
-    .info-box {
-      background-color: #f8fafc;
-      border: 1px solid #e2e8f0;
-      border-radius: 12px;
-      padding: 24px;
-    }
-    .info-box h5 {
-      color: #dc2626; /* Red color for warning/important */
-      font-weight: 700;
-      font-size: 1.1rem;
-      margin-bottom: 1rem;
-    }
-    .info-box ol {
-      padding-left: 1rem;
-      color: #475569;
-      font-size: 0.9rem;
-      line-height: 1.8;
-    }
-    .info-box ol li strong {
-      color: #1e293b;
-    }
-    .hover-card { transition: all 0.3s ease; }
-    .hover-card:hover { background-color: #fff !important; box-shadow: 0 5px 15px rgba(14, 165, 233, 0.15) !important; border-color: #0ea5e9 !important; }
-  </style>
 </head>
 <body>
 
@@ -75,17 +21,21 @@
 <header class="site-nav" id="siteNav"></header>
 
 <!-- ═══════════ KONTEN UTAMA ═══════════ -->
-<section class="section position-relative overflow-hidden" style="padding-top: 6rem; padding-bottom: 4rem; background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);">
+<section class="section position-relative" style="padding-top: 6rem; padding-bottom: 4rem; background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);">
   <!-- Glowing Background Blobs -->
   <div class="bg-glowing-blob" style="top: 5%; right: -10%;"></div>
   <div class="bg-glowing-blob" style="bottom: 5%; left: -10%; background: radial-gradient(circle, rgba(22, 163, 74, 0.08) 0%, rgba(22, 163, 74, 0) 70%);"></div>
 
-  <div class="container mt-2 position-relative" style="z-index: 1;">
-    <div class="mb-4">
+  <!-- Container utama pembungkus seluruh konten agar tombol back ter-render dalam konteks sticky yang tinggi -->
+  <div class="container-fluid px-4 px-md-5 mt-2 position-relative" style="z-index: 1;">
+    <div class="mb-4 btn-back-wrapper">
       <a href="penelitian.html" class="btn-back-round" title="Kembali ke Layanan Akademik">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
       </a>
     </div>
+
+    <!-- Konten Utama dihimpun dalam kontainer tengah standar -->
+    <div class="container px-0">
 
     <!-- Info Singkat Magang (Selalu Terlihat di Atas) -->
     <div class="row align-items-center mb-5 mt-3" data-aos="fade-up">
@@ -248,8 +198,8 @@
 
         </div>
       </div>
-    </div>
-  </div>
+    </div> <!-- Close of nested container -->
+  </div> <!-- Close of outer container-fluid -->
 </section>
 
 <!-- ═══════════ FOOTER ═══════════ -->
