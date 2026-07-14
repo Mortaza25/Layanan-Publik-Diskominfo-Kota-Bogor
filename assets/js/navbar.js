@@ -13,6 +13,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
   siteNav.innerHTML = `
     <div class="nav-wrap">
+      <!-- Mobile Hamburger -->
+      <button class="nav-hamburger" id="hamburger" aria-label="Buka menu">
+        <span></span><span></span><span></span>
+      </button>
+
       <!-- Brand: Dual Logo dengan garis pembatas, tanpa teks -->
       <a href="index.html" class="nav-brand">
         <img src="images/kominfo.jpg" alt="Logo Rusa Diskominfo" class="nav-logo-img">
@@ -76,11 +81,6 @@ document.addEventListener("DOMContentLoaded", function () {
           <a href="daftar-komitmen.php" class="nav-link ${page === 'daftar-komitmen.php' ? 'active' : ''}">Daftar Komitmen</a>
         </div>
       </nav>
-
-      <!-- Mobile Hamburger -->
-      <button class="nav-hamburger" id="hamburger" aria-label="Buka menu">
-        <span></span><span></span><span></span>
-      </button>
     </div>
   `;
 
@@ -96,6 +96,7 @@ document.addEventListener("DOMContentLoaded", function () {
     burger.addEventListener('click', () => {
       menu.classList.toggle('open');
       burger.classList.toggle('open');
+      siteNav.classList.toggle('nav-open');
     });
   }
 

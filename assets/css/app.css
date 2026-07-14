@@ -23,7 +23,7 @@
   --transition: .25s cubic-bezier(.4,0,.2,1);
 }
 
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; overflow-x: hidden; }
 
 body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -204,6 +204,16 @@ ul { list-style: none; }
   display: block; width: 22px; height: 2px;
   background: var(--slate-900); border-radius: 2px;
   transition: transform var(--transition), opacity var(--transition);
+}
+/* Animated Hamburger to X */
+.nav-hamburger.open span:nth-child(1) {
+  transform: translateY(6px) rotate(45deg);
+}
+.nav-hamburger.open span:nth-child(2) {
+  opacity: 0;
+}
+.nav-hamburger.open span:nth-child(3) {
+  transform: translateY(-6px) rotate(-45deg);
 }
 
 /* ─── HERO ──────────────────────────────────────────────────── */
@@ -654,10 +664,22 @@ ul { list-style: none; }
   .features-grid { grid-template-columns: 1fr; }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .hero-slider img { height: 220px; }
+  .nav-wrap {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: space-between !important;
+  }
+  .nav-brand {
+    order: 1 !important;
+  }
+  .nav-hamburger {
+    display: flex !important;
+    order: 2 !important;
+    margin-left: auto !important;
+  }
   .nav-menu, .nav-ai-btn { display: none; }
-  .nav-hamburger { display: flex; }
   .nav-menu.open {
     display: flex; flex-direction: column; align-items: flex-start;
     position: fixed; inset: var(--nav-h) 0 0;
@@ -666,6 +688,17 @@ ul { list-style: none; }
     z-index: 999;
     gap: 0.5rem;
     overflow-y: auto;
+  }
+  .site-nav.nav-open,
+  .site-nav:has(.nav-menu.open) {
+    height: 100vh !important;
+    background: #ffffff !important;
+    align-items: flex-start !important;
+    border-bottom: 1px solid var(--border) !important;
+  }
+  .site-nav.nav-open .nav-wrap,
+  .site-nav:has(.nav-menu.open) .nav-wrap {
+    height: var(--nav-h) !important;
   }
   .nav-menu.open .nav-item { width: 100%; }
   .nav-menu.open .nav-link { font-size: 1.1rem; padding: 0.8rem 1rem; width: 100%; border-radius: 8px; }
@@ -827,9 +860,28 @@ ul { list-style: none; }
 .nav-menu .dropdown-item { padding: 0.6rem 1.2rem; border-radius: 6px; margin: 2px 8px; width: auto; font-weight: 500; }
 .nav-menu .dropdown-item:hover { background-color: #f1f5f9; color: #0ea5e9; }
 
-@media (max-width: 991px) {
-  .nav-menu .dropdown-menu { display: block !important; box-shadow: none !important; padding: 0; margin-left: 1rem; border-left: 2px solid #e2e8f0; border-radius: 0; background: transparent; }
-  .nav-menu .dropdown-item { padding: 0.5rem 1rem; }
+@media (max-width: 1024px) {
+  .nav-menu .dropdown-menu {
+    display: none !important;
+    position: static !important;
+    float: none !important;
+    box-shadow: none !important;
+    padding: 0 0 0 1rem !important;
+    margin: 0.5rem 0 !important;
+    border-left: 2px solid #e2e8f0 !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    transform: none !important;
+  }
+  .nav-menu .dropdown-menu.show {
+    display: block !important;
+  }
+  .nav-menu .dropdown-item {
+    padding: 0.5rem 1rem !important;
+  }
 }
 
 /* ─── SHARED COMPONENTS (Custom Nav Pills & Info Box & Hover Card) ─── */
@@ -876,3 +928,162 @@ ul { list-style: none; }
 
 .hover-card { transition: all 0.3s ease; }
 .hover-card:hover { background-color: #fff !important; box-shadow: 0 5px 15px rgba(14, 165, 233, 0.15) !important; border-color: #0ea5e9 !important; }
+
+/* ─── ADDED RESPONSIVE STYLES FOR TABLET & MOBILE ─── */
+
+/* 1. Horizontal Scrollable Nav Pills for Mobile tabs */
+@media (max-width: 768px) {
+  .custom-nav-pills {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 8px !important;
+    margin-bottom: 0 !important;
+  }
+  .custom-nav-pills::-webkit-scrollbar {
+    display: none !important;
+  }
+  .custom-nav-pills .nav-item {
+    flex: 0 0 auto !important;
+  }
+  .custom-nav-pills .nav-link {
+    white-space: nowrap !important;
+  }
+}
+
+/* 2. Responsive padding for Hero/First Section of the page */
+@media (max-width: 991px) {
+  .section {
+    padding: 3rem 0 !important;
+  }
+  body > section.section:first-of-type {
+    padding-top: 6.5rem !important;
+    padding-bottom: 3rem !important;
+  }
+}
+@media (max-width: 576px) {
+  .section {
+    padding: 2rem 0 !important;
+  }
+  body > section.section:first-of-type {
+    padding-top: 5.5rem !important;
+    padding-bottom: 2rem !important;
+  }
+}
+
+/* 3. Premium Carousel Height Adjustment */
+@media (max-width: 576px) {
+  .carousel-wrapper-premium {
+    height: 320px !important;
+    border-radius: 16px !important;
+  }
+  .carousel-control-prev,
+  .carousel-control-next {
+    width: 36px !important;
+    height: 36px !important;
+  }
+}
+
+/* 4. Left Navigation Cards (flex adjustments for mobile and tablets) */
+@media (max-width: 991px) {
+  .d-flex.gap-3.flex-wrap > a {
+    max-width: none !important;
+  }
+}
+@media (max-width: 576px) {
+  .d-flex.gap-3.flex-wrap {
+    flex-direction: column !important;
+  }
+  .d-flex.gap-3.flex-wrap > a {
+    width: 100% !important;
+  }
+}
+
+/* 5. Responsive Journals Table to Mobile Cards */
+@media (max-width: 768px) {
+  /* Hide the NO column on mobile */
+  .col-no {
+    display: none !important;
+  }
+  
+  #journalsTable, 
+  #journalsTable tbody, 
+  #journalsTable tr, 
+  #journalsTable td {
+    display: block !important;
+    width: 100% !important;
+  }
+  
+  #journalsTable thead {
+    display: none !important;
+  }
+  
+  #journalsTable tr {
+    margin-bottom: 1.25rem !important;
+    background: var(--white) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: var(--radius) !important;
+    padding: 1.25rem !important;
+    box-shadow: var(--shadow-sm) !important;
+    transition: transform var(--transition), box-shadow var(--transition) !important;
+  }
+  
+  #journalsTable tr:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: var(--shadow-md) !important;
+    border-color: var(--blue) !important;
+  }
+  
+  #journalsTable td {
+    padding: 0.4rem 0 !important;
+    border: none !important;
+    text-align: left !important;
+  }
+  
+  #journalsTable td:nth-child(1) {
+    font-size: 0.75rem !important;
+    font-weight: 700 !important;
+    color: var(--slate-500) !important;
+    border-bottom: 1px solid var(--slate-100) !important;
+    padding-bottom: 0.6rem !important;
+    margin-bottom: 0.6rem !important;
+    display: flex !important;
+    justify-content: space-between !important;
+  }
+  
+  #journalsTable td:nth-child(1)::before {
+    content: "JURNAL NO.";
+  }
+  
+  #journalsTable td:nth-child(2) {
+    font-size: 0.95rem !important;
+    font-weight: 600 !important;
+    color: var(--slate-900) !important;
+    line-height: 1.5 !important;
+  }
+  
+  #journalsTable td:nth-child(3) {
+    font-size: 0.85rem !important;
+    color: var(--slate-500) !important;
+    margin-bottom: 0.6rem !important;
+  }
+  
+  #journalsTable td:nth-child(3)::before {
+    content: "Penulis: " !important;
+    font-weight: 600 !important;
+    color: var(--slate-700) !important;
+  }
+  
+  #journalsTable td:nth-child(4) {
+    padding-top: 0.8rem !important;
+    border-top: 1px solid var(--slate-100) !important;
+    display: flex !important;
+    justify-content: flex-start !important;
+  }
+  
+  #journalsTable td:nth-child(4) button {
+    width: 100% !important;
+    justify-content: center !important;
+  }
+}
