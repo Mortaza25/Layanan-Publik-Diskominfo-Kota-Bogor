@@ -59,7 +59,6 @@ document.addEventListener("DOMContentLoaded", function () {
             <li><a class="dropdown-item ${page === 'penelitian.html' || page === 'submit-penelitian.html' ? 'active text-primary fw-bold bg-light' : ''}" href="penelitian.html">Penelitian</a></li>
             <li><a class="dropdown-item ${page === 'daftar-jurnal.html' ? 'active text-primary fw-bold bg-light' : ''}" href="daftar-jurnal.html">Daftar Jurnal</a></li>
             <li><a class="dropdown-item ${page === 'magang.html' ? 'active text-primary fw-bold bg-light' : ''}" href="magang.html">Magang &amp; PKL</a></li>
-            <li><a class="dropdown-item ${page === 'titik-wifi.php' ? 'active text-primary fw-bold bg-light' : ''}" href="titik-wifi.php">Titik WiFi Gratis</a></li>
           </ul>
         </div>
 
